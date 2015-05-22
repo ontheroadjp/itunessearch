@@ -1,0 +1,31 @@
+
+
+#wrapper {
+	width: 950px;
+}
+#content {
+	float: left;
+	width: 605px;
+	margin: 0;
+	padding: 0;
+}
+
+#sidebar {
+	float: right;
+	width: 320px;
+	margin: 0;
+	padding: 0;
+}
+
+h3.item_title {
+	padding-left: 10px;
+	border-left: 10px solid #ff0000;
+}
+
+.item_list .info {
+	margin: 0 0 25px 65px;
+	line-height: 1.5em;
+	font-size: 14px;
+}
+
+
