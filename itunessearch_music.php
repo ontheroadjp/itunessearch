@@ -42,30 +42,12 @@
 		$title		= "エラー：iTunes ミュージック検索 & ブログ用タグ生成ツール";
 	}
 
-
 	// Cookie の処理 ----------------------------------------------------------------------
 	if ( $lstrackingUrl <> '' ) {
 		setcookie( "lstrackingUrl", $lstrackingUrl, time()+60*60*24*365 );
 
 	} else if( $lstrackingUrl == '' && $_COOKIE['lstrackingUrl'] ) {
 		$lstrackingUrl = $_COOKIE['lstrackingUrl'];
-	}
-
-	// 関数 -------------------------------------------------------------------------------
-	function getJson( $url ) {
-		// REST リクエストの発行
-		require_once('HTTP/Request.php');
-
-		$request =new HTTP_Request( $url );
-		$result = $request->sendRequest(); 
-
-		//レスポンスの本文を取得
-		$json = $request->getResponseBody(); 
-
-	//	$data = json_decode( $json );			//オブジェクトを返す
-		$data = json_decode( $json , true );	//連想配列を返す
-
-		return $data;
 	}
 
 
@@ -110,7 +92,9 @@
 	}
 
 	//データ取得
-	$data			= getJson($url);
+	$json = file_get_contents($url);
+	$data = json_decode( $json , true );	//連想配列を返す
+
 	$resultCount	= $data['resultCount'];
 	$results		= $data['results'];
 
@@ -131,7 +115,8 @@
 				echo '$url = '.$url.'<br>';
 			}
 
-			$data		= getJson($url);
+			$json		= file_get_contents($url);
+			$data = json_decode($json);
 			$results	= $data['results'];
 			$results	= getCollectionList($data['results'], $kw, $targetArtist);
 		}
@@ -172,26 +157,11 @@
 		$discNumber[$n]			= $results[$n]['discNumber'];			//ディスク番号
 		$trackTimeMillis[$n]	= $results[$n]['trackTimeMillis'];		//ディスク番号
 
-
 		$artworkUrl200[$n]		= str_replace( '100x100', '200x200', $artworkUrl100[$n] ); 		//商品画像
 		$trackTime_m[$n]		= floor(($trackTimeMillis[$n])/1000/60);						//時間（分）
 		$trackTime_s[$n]		= sprintf( '%02d', floor(($trackTimeMillis[$n])/1000%60) );		//時間（秒）
 	}
 	
-	
-/*
-	// LinkShare アフィリリンクの設定
-	if( $lstrackingUrl <> '' ) {
-		if( preg_match( "/^http:\/\/click\.linksynergy\.com\/fs-bin\/stat\?id=.+&RD_PARM1=$/", $lstrackingUrl ) ) {
-			$ls_trackingUrl = $lstrackingUrl;
-		} else {
-			$lstrackingUrl = "入力が正しくありません。生成された HTML はアフィリリンクではありませんがそのまま使えます。";
-			$ls_trackingUrl = "";
-		}
-	} else {
-		$ls_trackingUrl	= "";
-	}
-*/
 ?>
 
 <?php

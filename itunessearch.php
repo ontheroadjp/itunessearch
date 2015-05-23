@@ -23,8 +23,6 @@ if( $debug ==1 ) {
 	echo '$country = '.$country.'<br>';
 	echo '$phg_token = '.$phg_token.'<br>';
 	echo '$is_phg_token_save = '.$is_phg_token_save.'<br>';
-	echo '$trackId = '.$trackId.'<br>';
-	echo '$dev = '.$dev.'<br>';
 	echo '$debug = '.$debug.'<br>';
 }
 
@@ -70,12 +68,14 @@ $searchurl	= 'http://itunes.apple.com/search?';
 $url = $searchurl.'term='.$term.'&country='.$country.'&entity='.$entity;
 
 // REST リクエストの発行
-require_once( 'HTTP/Request.php' );
-$request =new HTTP_Request( $url );
-$result = $request->sendRequest(); 
+// require_once( 'HTTP/Request.php' );
+// $request =new HTTP_Request( $url );
+// $result = $request->sendRequest(); 
+// 
+// //レスポンスの本文を取得
+// $json = $request->getResponseBody(); 
 
-//レスポンスの本文を取得
-$json = $request->getResponseBody(); 
+$json = file_get_contents($url);
 
 //	$data = json_decode( $json );			//オブジェクトを返す
 $data = json_decode( $json , true );	//連想配列を返す
