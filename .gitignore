@@ -1,2 +1,5 @@
 DS_Store
 *.un~
+.remote-sync.json
+
+test.php
