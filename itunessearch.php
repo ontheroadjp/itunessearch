@@ -95,6 +95,8 @@ for( $n=0; $n<count( $results ); $n++ ) {
 	$currency[$n]					= $results[$n]['currency'];						//通貨
 	$price[$n]						= $results[$n]['price'];							//価格（アプリ）
 	$collectionPrice[$n]	= $results[$n]['collectionPrice'];		//価格（ミュージック：アルバム）
+	
+$trackName[$n]			= $results[$n]['trackName'];		// 商品名
 	$trackPrice[$n]				= $results[$n]['trackPrice'];					//価格（ミュージック：1曲）
 	$artistViewUrl[$n]		= $results[$n]['artistViewUrl'];			//iTunes へのリンク
 	$trackViewUrl[$n]			= $results[$n]['trackViewUrl'];				//Apple ページへのリンク
